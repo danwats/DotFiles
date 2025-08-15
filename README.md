@@ -27,3 +27,4 @@ will need to install zsh-autosuggestions and pure theme
 ### WAYBAR
 
 install JetBrains MonoNerdFont
+
