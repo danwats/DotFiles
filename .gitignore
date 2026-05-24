@@ -1,2 +1,4 @@
+
 tmux-session/.local/bin/tmux-sessionizer
 zsh/.zsh_profile
+lazy-lock.json
