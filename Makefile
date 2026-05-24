@@ -1,6 +1,6 @@
 install=nvim sway tmux-session waybar wofi zsh
 
 check: 
-	stow -nv $(install)
+	stow -nv -t ~ $(install)
 install:
-	stow $(install)
+	stow -t $(install)

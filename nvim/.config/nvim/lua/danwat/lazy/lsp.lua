@@ -29,12 +29,14 @@ return {
                 "gopls",
                 "lua_ls",
                 "rust_analyzer",
+                "terraformls",
+                "clangd",
             },
             handlers = {
                 function(server_name) -- default handler (optional)
-
                     require("lspconfig")[server_name].setup {
                         capabilities = capabilities
+
                     }
                 end,
 
@@ -53,6 +55,7 @@ return {
                 end,
             }
         })
+
 
         local cmp_select = { behavior = cmp.SelectBehavior.Select }
 
@@ -76,6 +79,7 @@ return {
             })
         })
 
+        local builtin = require('telescope.builtin')
         vim.keymap.set("n", "gd", function() vim.lsp.buf.definition() end, opts)
         vim.keymap.set("n", "K", function() vim.lsp.buf.hover() end, opts)
         vim.keymap.set("n", "<leader>vws", function() vim.lsp.buf.workspace_symbol() end, opts)
@@ -87,7 +91,8 @@ return {
         vim.keymap.set("n", "<leader>vrn", function() vim.lsp.buf.rename() end, opts)
         vim.keymap.set("n", "<leader>vri", function() vim.lsp.buf.implementation() end, opts)
         vim.keymap.set("i", "<C-h>", function() vim.lsp.buf.signature_help() end, { noremap = true, silent = true })
-        vim.keymap.set("n", "<leader>pr", function() builtin.lsp_document_symbols() end, opts)
+        vim.keymap.set("n", "<leader>vrs", function() builtin.lsp_document_symbols() end, opts)
+        vim.keymap.set("n", "<leader>e", function() vim.diagnostic.open_float() end, opts)
 
         vim.diagnostic.config({
             -- update_in_insert = true,
@@ -101,6 +106,12 @@ return {
             },
         })
 
-
+        vim.keymap.set('n', '<leader>tg', function()
+            if vim.bo.filetype == 'vimwiki' then
+                vim.bo.filetype = 'markdown'
+            elseif vim.bo.filetype == 'markdown' then
+                vim.bo.filetype = 'vimwiki'
+            end
+        end, { desc = "Toggle grammar checking" })
     end
 }
